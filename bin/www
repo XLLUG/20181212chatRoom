@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('20181212chartroom:server');
 var http = require('http');
+var socket = require('socket.io');
 
 /**
  * Get port from environment and store in Express.
@@ -20,7 +21,17 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
+var io = socket(server);
+io.on('connection', function (socket) {
+    console.log("在默认的命名空间：客户端连接建立成功");
+    socket.on('message', function (msg) {
+        socket.send(msg + 'too');
+    });
+    //当服务器端可客户端的连接断开时触发disconnect事件.
+    socket.on("disconnect", function () {
+        console.log("客户端断开连接.");
+    });
+});
 /**
  * Listen on provided port, on all network interfaces.
  */

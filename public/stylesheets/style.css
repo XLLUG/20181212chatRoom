@@ -1,8 +1,6 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.user{
+  cursor: pointer;
 }
-
-a {
-  color: #00B7FF;
+.form-horizontal .xys_margin_right_zero{
+  margin-right: 0;
 }
