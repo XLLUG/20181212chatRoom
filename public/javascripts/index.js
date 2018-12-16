@@ -13,6 +13,9 @@ app.controller('boxController', function ($scope, $rootScope, MessageService, $l
     /* $scope.$on('menue',function (data) {
          $scope.menue=data;
      });*/
+    /**
+     * 退出后断开连接
+     */
     $scope.logout = function () {
         $scope.menue = '退出';
         //断开socke.io连接
@@ -35,6 +38,9 @@ app.controller('boxController', function ($scope, $rootScope, MessageService, $l
         //查找父级controller上的menue并赋值
         $scope.$parent.menue = '首页';
         //$scope.$emit('menue', '首页');
+        /**
+         * 登陆后将登陆人的信息显示，和在线人数显示
+         */
         if ($rootScope.user) {
             $scope.$parent.loginUser = $rootScope.user;
             $scope.loginUser = $rootScope.user;
@@ -51,18 +57,31 @@ app.controller('boxController', function ($scope, $rootScope, MessageService, $l
 
             });
         }
+        /**
+         * 获取上线的人
+         */
         socket.on('loginUser', function (msg) {
                 console.log(msg);
                 $scope.loginUserList = msg;
             }
         );
+        /**
+         * 获取聊天的消息，注意客户端和服务端emit消息时，消息名字要不一样，否则 前后端的事件都能监听到
+         */
         socket.on('message',function (msg) {
             $scope.messageList.push(msg)
         });
+        /**
+         * 当有人退出时
+         */
         socket.on('userRemoved',function (msg) {
            alert(msg.name+'已经退出');
             $scope.loginUserList = msg.userList;
         });
+        /**
+         * 点击发送消息
+         * @param valid
+         */
         $scope.sendMessage = function (valid) {
             if($scope.loginUser == '' || $scope.loginUser == null){
                 $location.path('/login');
