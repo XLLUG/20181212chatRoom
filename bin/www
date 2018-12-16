@@ -38,13 +38,16 @@ io.on('connection', function (socket) {
         }
         socket.broadcast.emit('userRemoved', {
             name: socket.name,
-            userList:userList
+            userList: userList
         });
 
-//删除对应的socket实例
+        //删除对应的socket实例
         delete sockets[socket.name];
         console.log("客户端断开连接.");
     });
+    /**
+     * 监听是否有人登陆。
+     */
     socket.on('user', function (msg) {
         socket.name = msg.username;
         sockets[msg.username] = socket;
@@ -54,6 +57,9 @@ io.on('connection', function (socket) {
         }
         io.emit('loginUser', userList);
     });
+    /**
+     * 客户端发的消息
+     */
     socket.on('clientMessage', function (msg) {
         var mg = {username: socket.name, info: msg, time: Date.now()}
         io.emit('message', mg)
