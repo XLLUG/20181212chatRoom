@@ -1,30 +1,34 @@
-<form class="form-horizontal" action="/users/reg" method="post">
+<form name="registerForm" class="form-horizontal" method="post" novalidate>
     <div class="form-group xys_margin_right_zero">
         <label for="inputUserl3" class="col-sm-1 control-label" >用户名</label>
-        <div class="col-sm-11 input-group">
+        <div class="col-sm-11 input-group" ng-class="{'has-error':registerForm.username.$invalid && registerForm.username.$dirty,
+                    'has-success':registerForm.username.$valid}">
             <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
-            <input type="text" class="form-control" name="username" id="inputUserl3" placeholder="username">
+            <input type="text" class="form-control" ng-model="o.username" name="username" id="inputUserl3" placeholder="username" ng-required="true">
         </div>
     </div>
     <div class="form-group xys_margin_right_zero">
         <label for="inputEmail3" class="col-sm-1 control-label">邮箱</label>
-        <div class="col-sm-11 input-group">
+        <div class="col-sm-11 input-group" ng-class="{'has-error':registerForm.email.$invalid && registerForm.email.$dirty,
+                    'has-success':registerForm.email.$valid}">
             <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-            <input type="email" class="form-control" name="email" id="inputEmail3" placeholder="Email">
+            <input type="email" class="form-control" ng-model="o.email" name="email" id="inputEmail3" ng-required="true"placeholder="Email">
         </div>
     </div>
     <div class="form-group xys_margin_right_zero">
         <label for="inputPassword3" class="col-sm-1 control-label">密码</label>
-        <div class="col-sm-11 input-group">
+        <div class="col-sm-11 input-group" ng-class="{'has-error':registerForm.password.$invalid && registerForm.password.$dirty,
+                    'has-success':registerForm.password.$valid}">
             <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-            <input type="password" class="form-control" name="password" id="inputPassword3" minlength="6"  placeholder="Password">
+            <input type="password" ng-required="true" class="form-control"ng-model="o.password" name="password" id="inputPassword3" minlength="6"  placeholder="Password">
         </div>
     </div>
     <div class="form-group xys_margin_right_zero">
-        <label for="inputPassword4" class="col-sm-1 control-label">确认密码</label>
-        <div class="col-sm-11 input-group">
+        <label for="inputPassword4"  class="col-sm-1 control-label">确认密码</label>
+        <div class="col-sm-11 input-group" ng-class="{'has-error':registerForm.repassword.$invalid && registerForm.repassword.$dirty,
+                    'has-success':registerForm.repassword.$valid}">
             <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-            <input type="password" class="form-control" name="repassword" id="inputPassword4" minlength="6" placeholder="Password">
+            <input type="password" ng-required="true"class="form-control" ng-model="o.repassword" name="repassword" id="inputPassword4" minlength="6" placeholder="Password">
         </div>
     </div>
     <div class="form-group xys_margin_right_zero">
@@ -38,7 +42,7 @@
     </div>
     <div class="form-group xys_margin_right_zero">
         <div class="col-sm-offset-1 col-sm-10">
-            <button type="submit" class="btn btn-success">注册</button>
+            <button type="button" class="btn btn-success" ng-click="register(registerForm.$valid)">注册</button>
         </div>
     </div>
 </form>

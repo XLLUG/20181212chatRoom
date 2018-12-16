@@ -1,51 +1,51 @@
 <div>
     <div class="row">
         <div class="col-md-6">
-           <div class="panel panel-default" >
-               <div class="panel-header alert alert-info">个人信息</div>
-               <p>&nbsp;昵称：牛牛</p>
-               <p>&nbsp;联系方式：男</p>
-           </div>
-            <div class="panel panel-default" >
-                <div class="panel-header  alert alert-info"><span class="glyphicon glyphicon-user"></span>&nbsp;在线用户</div>
-                <table class="table table-striped">
-                    <tr>
-                        <td width="10%">男</td>
-                        <td>
-                            <span></span> 牛牛牛
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>男</td>
-                        <td>
-                            <span></span> 牛牛牛
-                        </td>
-                    </tr>
-                </table>
+            <div class="panel panel-default">
+                <div class="panel-header alert alert-info">个人信息</div>
+                <p>&nbsp;昵称：{{loginUser.username}}</p>
+                <p>&nbsp;联系方式：{{loginUser.email}}</p>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-header  alert alert-info"><span class="glyphicon glyphicon-user"></span>&nbsp;在线用户
+                </div>
+                <div class="panel-body xys_max_height">
+                    <table class="table table-striped ">
+                        <tr ng-repeat="item in loginUserList">
+                            <td>
+                                <span></span> {{item.username}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-header  alert alert-info">
-                   <span class="glyphicon glyphicon-comment"></span> 聊天内容
+                    <span class="glyphicon glyphicon-comment"></span> 聊天内容
                 </div>
-                <div class="panel-body">
-                    <p><b class="user">牛牛 [{{date|date:'HH:mm:ss'}}]</b><span class="glyphicon glyphicon-bullhorn"></span></p>
-                    <div>
-                        你好啊
-                    </div>
-                    <p><b class="user">牛牛 [{{date|date:'HH:mm:ss'}}]</b><span class="glyphicon glyphicon-bullhorn"></span></p>
-                    <div>
-                        你好啊
+                <div class="panel-body xys_max_height">
+                    <div ng-repeat="m in messageList">
+                        <p><b class="user">{{m.username}} [{{m.time|date:'HH:mm:ss'}}]</b><span
+                                class="glyphicon glyphicon-bullhorn user"></span></p>
+                        <p>
+                           {{m.info}}
+                        </p>
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <div class="input-group-btn">
-                            <button class="btn btn-info">发送</button>
+                    <form name="myForm" novalidate>
+                        <div class="input-group" ng-class="{'has-error':myForm.message.$invalid && myForm.message.$dirty,
+                    'has-success':myForm.message.$valid}">
+
+                            <input type="text" name="message" class="form-control" ng-model="message" ng-required="true">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-info" ng-click="sendMessage(myForm.message.$valid)">发送</button>
+                            </div>
+
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

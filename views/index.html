@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>GG聊天室</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel='stylesheet' href='/public/lib/bootstrap/dist/css/bootstrap.css'/>
     <link rel='stylesheet' href='/public/stylesheets/style.css'/>
 </head>
@@ -20,21 +21,25 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-                   <strong>G</strong>
+                    <strong>G</strong>
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li ng-class="{'active':menue=='首页'}"><a ng-click="menue='首页'" href="#!/">首页 <span class="sr-only">(current)</span></a></li>
-                    <li ng-class="{'active':menue=='登陆'}"><a ng-click="menue='登陆'" href="#!/login">登陆</a></li>
-                    <li ng-class="{'active':menue=='注册'}"><a ng-click="menue='注册'" href="#!/register">注册</a></li>
+                    <li ng-class="{'active':menue=='首页'}"><a href="#!/">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li ng-if="!loginUser" ng-class="{'active':menue=='登陆'}"><a
+                                                                                href="#!/login">登陆</a></li>
+                    <li ng-if="!loginUser" ng-class="{'active':menue=='注册'}"><a
+                                                                                href="#!/register">注册</a></li>
+                    <li ng-if="loginUser" ng-class="{'active':menue=='退出'}"><a style="cursor: pointer" ng-click="logout()">退出</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 </div>
-    <div class="" ng-view></div>
+<div class="" ng-view></div>
 </body>
 <!--加上socket.io后端服务后就不会报错-->
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
